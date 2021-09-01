@@ -91,13 +91,13 @@ def evaluate(respth='new_image', dspth='image/', cp="onnnx_files/onnx_model_name
     
     for image_path in os.listdir(dspth):
         img_orig  = Image.open(osp.join(dspth, image_path))
-        img_orig = img_orig.resize((480, 640), Image.BILINEAR)
+        img_orig = img_orig.resize((512, 512), Image.BILINEAR)
 
         img = img_orig.copy()
         img = to_numpy(img)
 
-        
-        img = np.array([img for _ in range(16)])
+        img = img[None]
+        #img = np.array([img for _ in range(16)])
         
         # Словарь
         ort_inputs = {ort_session.get_inputs()[0].name: img.astype(np.float32)}
@@ -112,4 +112,4 @@ def evaluate(respth='new_image', dspth='image/', cp="onnnx_files/onnx_model_name
         vis_parsing_maps(img_orig, parsing, stride=1, save_im=True, image_path = image_path, save_path=osp.join(respth, image_path))
 
 if __name__ == "__main__":
-    evaluate(dspth='image/', cp='onnnx_files/onnx_model_name.onnx')
+    evaluate(dspth='image/', cp='onnnx_files/onnx_model_name2.onnx')
