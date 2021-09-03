@@ -106,7 +106,12 @@ def evaluate(respth='new_image', dspth='image/', cp="onnnx_files/onnx_model_name
         
         # Массив вероятностей -> в массив сегментов
         parsing = ort_outs[0].argmax(0)
+        
+                    
+        # atts = [1 'skin', 2 'l_brow', 3 'r_brow', 4 'l_eye', 5 'r_eye', 6 'eye_g', 7 'l_ear', 8 'r_ear', 9 'ear_r',
+        #  10 'nose', 11 'mouth', 12 'u_lip', 13 'l_lip', 14 'neck', 15 'neck_l', 16 'cloth', 17 'hair', 18 'hat']
 
+        
         print(np.unique(parsing))
 
         vis_parsing_maps(img_orig, parsing, stride=1, save_im=True, image_path = image_path, save_path=osp.join(respth, image_path))
